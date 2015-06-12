@@ -9,7 +9,7 @@ let mapleader=' '
 " alternatives that it thinks may be correct.
 "set spell spelllang=en_us
 
-set clipboard=unnamed
+"set clipboard=unnamed
 
 
 " .vimrc
@@ -194,11 +194,30 @@ nmap <Leader>g g<C-g>
 " Paste from OS X PasteBoard, but I have it configured so it works very well in
 " insert mode and in normal mode. The nopaste setting makes sure that
 " auto-indent doesn't go crazy when you try to paste something in. 
-nmap <Leader>v :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-imap <Leader>v <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+"nmap <Leader>v :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+"imap <Leader>v <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 
 " Copies text to OS X PasteBoard. If you are in normal mode, it will just grab
 " the line your working on. If you in visual mode however, it will grab all the
 " selected text. 
-nmap <Leader>c :.w !pbcopy<CR><CR>
-vmap <Leader>c :w !pbcopy<CR><CR>
+"nmap <Leader>c :.w !pbcopy<CR><CR>
+"vmap <Leader>c :w !pbcopy<CR><CR>
+
+" Yank whole file to clipboard
+nmap <Leader>a :%y*<CR>
+
+" Paste from clipboard
+nmap <Leader>v "*P
+vmap <Leader>v "*P
+
+" Copy to Clipboard
+nmap <Leader>c "*y
+
+" Paste from clipboard
+nmap <Leader>v "*P
+vmap <Leader>v "*P
+
+" Copy to Clipboard
+nmap <Leader>c "*Y
+vmap <Leader>c "*y
+
