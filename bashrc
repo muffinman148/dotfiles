@@ -201,3 +201,5 @@ fi
 #	rwxr--r-- = 744
 #
 #	r-------- = 400  (root must change or execute)
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

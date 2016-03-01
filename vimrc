@@ -1,4 +1,44 @@
-set runtimepath^=~/.vim/plugin/ctrlp.vim
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" Let vundle manage vundle
+Plugin 'gmarik/vundle'
+
+" Airline
+Plugin 'bling/vim-airline'
+
+" Code management
+Plugin 'tpope/vim-commentary' " comment/uncomment lines with gcc or gc in visual mode
+Plugin 'tomtom/tcomment_vim' "provides easy to use, file-type sensible comments for Vim
+Plugin 'ervandew/supertab' "use <Tab> for all your insert completion needs (:help ins-completion).
+Plugin 'scrooloose/syntastic' "syntax checking plugin for Vim.
+
+" File Management
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree' " file drawer, open with :NERDTreeToggle
+
+" Git
+Plugin 'tpope/vim-fugitive' " the ultimate git helper
+Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter
+
+" Markdown
+Plugin 'godlygeek/tabular'
+
+" Misc
+Plugin 'tpope/vim-surround' " surround text with things
+Plugin 'sjl/gundo.vim' " Visualize your Vim undo tree.
+
+" Syntax highlighting.
+Plugin 'evidens/vim-twig' " Twig syntax hightlighting.
+Plugin 'elzr/vim-json' " JSON code highlighting.
+
+" All of your Plugins must be added before the following line 
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 let mapleader=' '
 
 
@@ -34,8 +74,6 @@ set smarttab        " When on, a <Tab> in front of a line inserts blanks
  
 set showcmd         " Show (partial) command in status line.
 
-"set number          " Show line numbers.
-
 set showmatch       " When a bracket is inserted, briefly jump to the matching
                     " one. The jump is only done if the match can be seen on the
                     " screen. The time to show the match can be set with
@@ -64,7 +102,7 @@ set autoindent      " Copy indent from current line when starting a new line
 set textwidth=79    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
  
-set formatoptions=c,q,r,t " This is a sequence of letters which describes how
+set formatoptions=c,q,r " This is a sequence of letters which describes how
                     " automatic formatting is to be done.
                     "
                     " letter    meaning when present in 'formatoptions'
@@ -88,6 +126,18 @@ set background=dark " When set to "dark", Vim will try to use colors that look
  
 set mouse=a         " Enable the use of the mouse.
 
+set relativenumber  " Shows current line as well as ascending and descending 
+set number          " values above and below respectively
+set cursorline
+
+" set cursorline colors
+highlight cursorline term=bold cterm=NONE ctermbg=darkgrey ctermfg=none
+
+" Set color of number column on cursorline
+highlight cursorlinenr ctermbg=235 ctermfg=red
+
+" Highlights the current line number.
+highlight linenr term=bold cterm=none ctermfg=darkgrey ctermbg=none gui=none guifg=darkgrey
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
@@ -97,7 +147,7 @@ set mouse=a         " Enable the use of the mouse.
 "              on this file is still a good idea.
 
 "------------------------------------------------------------
-" Features {{{1
+" Features 
 "
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
@@ -180,10 +230,62 @@ noremap <Leader>d ovar_dump();die('here');k0f(a
 " Add getter and setters for properties
 nnoremap <f1> 0/private\<bar>protected\<bar>publicww"zywjmqGo?}dGopublic function set "zpbhx~A($"zpA){	$this->"zpA = $"zpA;return $this;}<<oo	public function get "zpbhx~A(){	return $this->"zpA;}}V(((((='q
 
-"map <f5> :!php 'd:\wamp\www\unified\tools\illustratorimport.php' <CR>
 
-" Shortcut for nerdTree
-nnoremap <f2> :NERDTreeToggle<CR>
+"""""""""""""""""""""""""""""""""""""""
+" Nerdtree
+"""""""""""""""""""""""""""""""""""""""
+
+" Show hidden files by default in NERDTree
+let NERDTreeShowHidden=1
+
+" map leader+d to toggle nerdtree
+map <leader>j :NERDTreeFind<cr>
+
+" show current file in nerdtree
+map <leader>f :NERDTreeFind<cr>
+
+" Set NerdTree Window size
+let NERDTreeWinSize = 40
+
+"https://github.com/scrooloose/nerdtree/issues/162#issuecomment-107643011
+nmap <silent> <Leader>t :call g:WorkaroundNERDTreeToggle()<CR>
+
+function! g:WorkaroundNERDTreeToggle()
+  try | NERDTreeToggle | catch | silent! NERDTree | endtry
+endfunction
+
+"-----------------END-----------------"
+
+"""""""""""""""""""""""""""""""""""""""
+" Airline
+"""""""""""""""""""""""""""""""""""""""
+
+" need it for airline symbols
+set encoding=utf-8
+
+" airline settings
+let g:airline#extensions#syntastic#enabled=1
+let g:airline_powerline_fonts=1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = 'π'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'ξ'
+
+"-----------------END-----------------"
 
 " run php on current file
 nnoremap <f3> :!php % <CR>
@@ -221,3 +323,5 @@ vmap <Leader>v "*P
 nmap <Leader>c "*Y
 vmap <Leader>c "*y
 
+" Line-break at Cursor
+nnoremap K i<CR><Esc>
