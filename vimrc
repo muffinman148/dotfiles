@@ -12,9 +12,11 @@ Plugin 'bling/vim-airline'
 
 " Code management
 Plugin 'tpope/vim-commentary' " comment/uncomment lines with gcc or gc in visual mode
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'tomtom/tcomment_vim' "provides easy to use, file-type sensible comments for Vim
 Plugin 'ervandew/supertab' "use <Tab> for all your insert completion needs (:help ins-completion).
 Plugin 'scrooloose/syntastic' "syntax checking plugin for Vim.
+Plugin 'Chiel92/vim-autoformat' "formats code with one button
 
 " File Management
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -34,6 +36,9 @@ Plugin 'sjl/gundo.vim' " Visualize your Vim undo tree.
 " Syntax highlighting.
 Plugin 'evidens/vim-twig' " Twig syntax hightlighting.
 Plugin 'elzr/vim-json' " JSON code highlighting.
+
+" Movement
+Plugin 'easymotion/vim-easymotion'
 
 " All of your Plugins must be added before the following line 
 call vundle#end()            " required
@@ -58,49 +63,35 @@ let mapleader=' '
 " For multi-byte character support (CJK support, for example):
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
        
-set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
+set autoindent      " Copy indent from current line when starting a new line
+                    " (typing <CR> in Insert mode or when using the "o" or "O"
+                    " command).
  
-set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
- 
-set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
-                    " Spaces are used in indents with the '>' and '<' commands
-                    " and when 'autoindent' is on. To insert a real tab when
-                    " 'expandtab' is on, use CTRL-V <Tab>.
- 
-set smarttab        " When on, a <Tab> in front of a line inserts blanks
-                    " according to 'shiftwidth'. 'tabstop' is used in other
-                    " places. A <BS> will delete a 'shiftwidth' worth of space
-                    " at the start of the line.
- 
-set showcmd         " Show (partial) command in status line.
-
-set showmatch       " When a bracket is inserted, briefly jump to the matching
-                    " one. The jump is only done if the match can be seen on the
-                    " screen. The time to show the match can be set with
-                    " 'matchtime'.
- 
-"set hlsearch        " When there is a previous search pattern, highlight all
-                    " its matches.
- 
-set incsearch       " While typing a search command, show immediately where the
-                    " so far typed pattern matches.
- 
-set ignorecase      " Ignore case in search patterns.
- 
-set smartcase       " Override the 'ignorecase' option if the search pattern
-                    " contains upper case characters.
+set background=dark " When set to "dark", Vim will try to use colors that look
+                    " good on a dark background. When set to "light", Vim will
+                    " try to use colors that look good on a light background.
+                    " Any other value is illegal.
  
 set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
                     " and CTRL-U in Insert mode. This is a list of items,
                     " separated by commas. Each item allows a way to backspace
                     " over something.
  
-set autoindent      " Copy indent from current line when starting a new line
-                    " (typing <CR> in Insert mode or when using the "o" or "O"
-                    " command).
- 
-set textwidth=79    " Maximum width of text that is being inserted. A longer
-                    " line will be broken after white space to get this width.
+set cursorline
+
+" set cursorline colors
+highlight cursorline term=bold cterm=NONE ctermbg=237 ctermfg=none
+
+" Set color of number column on cursorline
+highlight cursorlinenr ctermbg=235 ctermfg=red
+
+" Highlights the current line number.
+highlight linenr term=bold cterm=none ctermfg=darkgrey ctermbg=none gui=none guifg=darkgrey
+
+set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
+                    " Spaces are used in indents with the '>' and '<' commands
+                    " and when 'autoindent' is on. To insert a real tab when
+                    " 'expandtab' is on, use CTRL-V <Tab>.
  
 set formatoptions=c,q,r " This is a sequence of letters which describes how
                     " automatic formatting is to be done.
@@ -116,28 +107,50 @@ set formatoptions=c,q,r " This is a sequence of letters which describes how
                     "           to comments)
                     " n         recognize numbered lists
  
-set ruler           " Show the line and column number of the cursor position,
-                    " separated by a comma.
+"set hlsearch        " When there is a previous search pattern, highlight all
+                    " its matches.
  
-set background=dark " When set to "dark", Vim will try to use colors that look
-                    " good on a dark background. When set to "light", Vim will
-                    " try to use colors that look good on a light background.
-                    " Any other value is illegal.
+set incsearch       " While typing a search command, show immediately where the
+                    " so far typed pattern matches.
+ 
+set ignorecase      " Ignore case in search patterns.
  
 set mouse=a         " Enable the use of the mouse.
 
-set relativenumber  " Shows current line as well as ascending and descending 
 set number          " values above and below respectively
-set cursorline
 
-" set cursorline colors
-highlight cursorline term=bold cterm=NONE ctermbg=darkgrey ctermfg=none
+set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
+ 
+set textwidth=79    " Maximum width of text that is being inserted. A longer
+                    " line will be broken after white space to get this width.
+ 
+set relativenumber  " Shows current line as well as ascending and descending 
 
-" Set color of number column on cursorline
-highlight cursorlinenr ctermbg=235 ctermfg=red
+set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
+ 
+set showcmd         " Show (partial) command in status line.
 
-" Highlights the current line number.
-highlight linenr term=bold cterm=none ctermfg=darkgrey ctermbg=none gui=none guifg=darkgrey
+set showmatch       " When a bracket is inserted, briefly jump to the matching
+                    " one. The jump is only done if the match can be seen on the
+                    " screen. The time to show the match can be set with
+                    " 'matchtime'.
+ 
+set smartcase       " Override the 'ignorecase' option if the search pattern
+                    " contains upper case characters.
+ 
+set smarttab        " When on, a <Tab> in front of a line inserts blanks
+                    " according to 'shiftwidth'. 'tabstop' is used in other
+                    " places. A <BS> will delete a 'shiftwidth' worth of space
+                    " at the start of the line.
+ 
+set ruler           " Show the line and column number of the cursor position,
+                    " separated by a comma.
+ 
+
+set wildmenu
+
+set wildmode=list:longest 
+
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
@@ -215,14 +228,14 @@ nnoremap <Leader>ev :vs $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 
 " Comment lines or paragraph with //
-nnoremap <Leader>cl mzI//<esc>'z
-nnoremap <Leader>cp mzVip:s/^\s*\zs\ze/\/\//<cr><esc>'z
+" nnoremap <Leader>cl mzI//<esc>'z
+" nnoremap <Leader>cp mzVip:s/^\s*\zs\ze/\/\//<cr><esc>'z
 
-nnoremap <Leader>ul mzV:s/\%V\(\s*\)\/\//\1<cr>'z
-nnoremap <Leader>up mzVip:s/\%V\(\s*\)\/\//\1<cr>'z
+" nnoremap <Leader>ul mzV:s/\%V\(\s*\)\/\//\1<cr>'z
+" nnoremap <Leader>up mzVip:s/\%V\(\s*\)\/\//\1<cr>'z
 
-vnoremap <Leader>cl mz:s/^\s*\zs\ze/\/\/<cr>'z
-vnoremap <Leader>ul mzV:s/\%V\(\s*\)\/\//\1<cr>'z
+" vnoremap <Leader>cl mz:s/^\s*\zs\ze/\/\/<cr>'z
+" vnoremap <Leader>ul mzV:s/\%V\(\s*\)\/\//\1<cr>'z
 
 " Insert php var_dump() and die() for debugging
 noremap <Leader>d ovar_dump();die('here');k0f(a
