@@ -32,6 +32,7 @@ alias fgrep='LC_ALL=C fgrep'
 alias egrep='LC_ALL=C egrep'
 alias less='less -MRS'
 alias phptools='php /Volumes/unified/tools/createSqlForModel.php'
+alias gitvundle='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 
 # Show bash keybindings
 alias showkeys="bind -p | grep -v '^#\|self-insert\|^$'"
