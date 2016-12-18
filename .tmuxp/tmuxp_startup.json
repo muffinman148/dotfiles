@@ -1,0 +1,35 @@
+{
+    "windows": [
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "clear",
+                        "ls"
+                    ]
+                },
+                {
+                    "shell_command": [
+                        "vim"
+                    ]
+                }
+            ],
+            "options": {
+                "main-pane-width": 50
+            },
+            "layout": "main-vertical",
+            "window_name": "dev"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "ssh honorlife"
+                    ]
+                }
+            ],
+            "window_name": "ssh"
+        }
+    ],
+    "session_name": "muffin"
+}
