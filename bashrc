@@ -33,6 +33,8 @@ alias egrep='LC_ALL=C egrep'
 alias less='less -MRS'
 alias phptools='php /Volumes/unified/tools/createSqlForModel.php'
 alias gitvundle='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
+alias schoolPath='cd ~/Documents/_SchoolStuff/2016-Fall/CS211/'
+alias st='tmuxp load ~/.tmuxp/tmuxp_startup.json'
 
 # Show bash keybindings
 alias showkeys="bind -p | grep -v '^#\|self-insert\|^$'"
@@ -51,11 +53,11 @@ bind "set show-all-if-ambiguous on"
 # Todo.txt stuff
 #alias t='todo.sh -d $HOME/.todo.cfg'
 #complete -F _todo t
-alias t='/usr/local/Cellar/todo-txt/2.10/bin/todo.sh -d $HOME/.todo.cfg'
-source /usr/local/Cellar/todo-txt/2.10/etc/bash_completion.d/todo_completion complete -F _todo t
-export TODOTXT_DEFAULT_ACTION=ls
+#alias t='/usr/local/Cellar/todo-txt/2.10/bin/todo.sh -d $HOME/.todo.cfg'
+#source /usr/local/Cellar/todo-txt/2.10/etc/bash_completion.d/todo_completion complete -F _todo t
+#export TODOTXT_DEFAULT_ACTION=ls
 # Turns auto archive off
-export TODOTXT_AUTO_ARCHIVE=0
+#export TODOTXT_AUTO_ARCHIVE=0
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -74,7 +76,7 @@ echo ""
 echo "to edit,     'nano .bashrc'"
 echo ""
 
-MYNAME='David Hatch'
+MYNAME='muffinrain'
 export MYNAME
 
 # or set it and export it in same line
@@ -85,6 +87,8 @@ export HISTCONTROL=ignoreboth:erasedups		# ignoredups:ignorespace
 export HISTIGNORE="t *:delHistory*:fg:history:history -d*:h:h -d*:pwd:exit:df:ll:ls:man *:"
 # append to the history file, don't overwrite it
 shopt -s histappend
+# allows for recursive listing with ex: **/*.cpp
+shopt -s globstar
 
 # Save and reload the history after each command finishes
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
@@ -92,6 +96,9 @@ shopt -s histappend
 # mac default
 #export PS1='\h:\W \u$ '    # OS X orig
 export PS1='\w\n\u@\h \$ '
+
+#Set to Modified Shell Color
+#export PS1='\e[1;31m\w\n\e[0;36m\u@\h \e[0m\$ '
 
 # GREP_COLOR codes
 # Attributes:   Text color:    Background:
@@ -105,7 +112,7 @@ export PS1='\w\n\u@\h \$ '
 #                 37 white       47 white
 # Separate with ";"
 #
-export GREP_COLOR="34;40"
+export GREP_COLOR="1;31;47"
 
 # Specify options grep should use by default
 export GREP_OPTIONS="--color=auto"

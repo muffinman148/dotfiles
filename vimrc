@@ -4,11 +4,16 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" Let vundle manage vundle
-Plugin 'gmarik/vundle'
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 " Airline
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'edkolev/tmuxline.vim'
 
 " Code management
 Plugin 'tpope/vim-commentary' " comment/uncomment lines with gcc or gc in visual mode
@@ -17,6 +22,7 @@ Plugin 'tomtom/tcomment_vim' "provides easy to use, file-type sensible comments 
 Plugin 'ervandew/supertab' "use <Tab> for all your insert completion needs (:help ins-completion).
 Plugin 'scrooloose/syntastic' "syntax checking plugin for Vim.
 Plugin 'Chiel92/vim-autoformat' "formats code with one button
+Plugin 'skwp/greplace.vim' " search and replace across many files
 
 " File Management
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -32,13 +38,19 @@ Plugin 'godlygeek/tabular'
 " Misc
 Plugin 'tpope/vim-surround' " surround text with things
 Plugin 'sjl/gundo.vim' " Visualize your Vim undo tree.
+Plugin 'tpope/vim-repeat' " Allows '.' repeats of plugin maps/commands
 
 " Syntax highlighting.
 Plugin 'evidens/vim-twig' " Twig syntax hightlighting.
 Plugin 'elzr/vim-json' " JSON code highlighting.
+Plugin 'terryma/vim-multiple-cursors' " Multiple cursors for simultaneous editing
 
 " Movement
-Plugin 'easymotion/vim-easymotion'
+Plugin 'justinmk/vim-sneak'
+Plugin 'terryma/vim-smooth-scroll' " Smooth scrolling with <c - f> & <c - b>
+
+" tmux
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line 
 call vundle#end()            " required
@@ -223,7 +235,7 @@ cnoremap %s/ %smagic/\v
 noremap <Leader>; :s:\v::g<Left><Left><Left>
 noremap <Leader>' :%s:\v::g<Left><Left><Left>
 
-" Edit and sourc vimrc file
+" Edit and source vimrc file
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 
@@ -243,6 +255,11 @@ noremap <Leader>d ovar_dump();die('here');k0f(a
 " Add getter and setters for properties
 nnoremap <f1> 0/private\<bar>protected\<bar>publicww"zywjmqGo?}dGopublic function set "zpbhx~A($"zpA){	$this->"zpA = $"zpA;return $this;}<<oo	public function get "zpbhx~A(){	return $this->"zpA;}}V(((((='q
 
+" Add getter and setters for properties
+nnoremap <f2> 0/string\<bar>int\<bar>long\<bar>double\<bar>float\<bar>char\<bar>boolw"zywjmqGo?}dGostring set "zpbhx~A($"zpA){ $this->"zpA = $"zpA;return $this;}<<oo string get "zpbhx~A(){ return $this->"zpA;}}V(((((='q
+
+" Testing for Class creation
+" nnoremap <f3> 0/class (\w+) \{j/protected\<bar>private
 
 """""""""""""""""""""""""""""""""""""""
 " Nerdtree
@@ -252,7 +269,7 @@ nnoremap <f1> 0/private\<bar>protected\<bar>publicww"zywjmqGo?}dGopublic fun
 let NERDTreeShowHidden=1
 
 " map leader+d to toggle nerdtree
-map <leader>j :NERDTreeFind<cr>
+map <leader>j :NERDTreeToggle<cr>
 
 " show current file in nerdtree
 map <leader>f :NERDTreeFind<cr>
@@ -279,6 +296,7 @@ set encoding=utf-8
 " airline settings
 let g:airline#extensions#syntastic#enabled=1
 let g:airline_powerline_fonts=1
+let g:airline_theme='distinguished'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -300,6 +318,18 @@ let g:airline_symbols.whitespace = 'ξ'
 
 "-----------------END-----------------"
 
+"""""""""""""""""""""""""""""""""""""""
+" Tmux
+"""""""""""""""""""""""""""""""""""""""
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+
+"-----------------END-----------------"
+
 " run php on current file
 nnoremap <f3> :!php % <CR>
 
@@ -317,6 +347,10 @@ nmap <Leader>g g<C-g>
 " selected text. 
 "nmap <Leader>c :.w !pbcopy<CR><CR>
 "vmap <Leader>c :w !pbcopy<CR><CR>
+
+" Saves File
+nmap <Leader>s :w<CR>
+nmap <Leader>sa :w %:h/
 
 " Yank whole file to clipboard
 nmap <Leader>a :%y*<CR>
@@ -338,3 +372,28 @@ vmap <Leader>c "*y
 
 " Line-break at Cursor
 nnoremap K i<CR><Esc>
+
+" Scrolling Gradually
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 15, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 15, 4)<CR>
+
+"Globstar Setting
+"set shell+=\ -O\ globstar
+set shell=/usr/local/bin/bash\ -O\ globstar
+
+" Vim-Sneak f override
+nmap f <Plug>Sneak_s
+nmap F <Plug>Sneak_S
+xmap f <Plug>Sneak_s
+xmap F <Plug>Sneak_S
+omap f <Plug>Sneak_s
+omap F <Plug>Sneak_S
+
+
+" Sets New Windows to Right/Below
+set splitright
+
+nnoremap <Leader>wv :vnew<CR>
+nnoremap <Leader>wn :new<CR>
