@@ -34,7 +34,17 @@ alias less='less -MRS'
 alias phptools='php /Volumes/unified/tools/createSqlForModel.php'
 alias gitvundle='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias schoolPath='cd ~/Documents/_SchoolStuff/2016-Fall/CS211/'
-alias st='tmuxp load ~/.tmuxp/tmuxp_startup.json'
+alias st='tmuxp load ~/dotfiles/.tmuxp/tmuxp_startup.json'
+alias g='git status'
+
+# Git
+alias ga='git add'
+alias gc='git commit -v'
+alias gd='git diff'
+alias gu='git remote update'
+alias gsi='git status --i'
+alias gl='git log'
+alias gca='git commit --amend'
 
 # Show bash keybindings
 alias showkeys="bind -p | grep -v '^#\|self-insert\|^$'"
@@ -211,3 +221,4 @@ fi
 #	r-------- = 400  (root must change or execute)
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.npm-packages/bin" #Removes need for global install
