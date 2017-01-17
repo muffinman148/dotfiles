@@ -23,6 +23,7 @@ Plugin 'ervandew/supertab' "use <Tab> for all your insert completion needs (:hel
 Plugin 'scrooloose/syntastic' "syntax checking plugin for Vim.
 Plugin 'Chiel92/vim-autoformat' "formats code with one button
 Plugin 'skwp/greplace.vim' " search and replace across many files
+"Plugin 'w0rp/ale' " Hope for better than syntastic
 
 " File Management
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -51,6 +52,10 @@ Plugin 'terryma/vim-smooth-scroll' " Smooth scrolling with <c - f> & <c - b>
 
 " tmux
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tmux-plugins/vim-tmux'
+
+" Python
+Plugin 'klen/python-mode'
 
 " All of your Plugins must be added before the following line 
 call vundle#end()            " required
@@ -317,6 +322,16 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'ξ'
 
 "-----------------END-----------------"
+"""""""""""""""""""""""""""""""""""""""
+" Syntastic
+"""""""""""""""""""""""""""""""""""""""
+"let g:syntastic_javascript_checkers=['eslint']
+let g:statline_syntastic = 0
+"
+"""""""""""""""""""""""""""""""""""""""
+" Ale
+"""""""""""""""""""""""""""""""""""""""
+"let g:ale_filetype_blacklist = ['nerdtree', 'unite', 'COMMIT_EDITMSG']
 
 """""""""""""""""""""""""""""""""""""""
 " Tmux
