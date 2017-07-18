@@ -33,9 +33,14 @@ alias egrep='LC_ALL=C egrep'
 alias less='less -MRS'
 alias phptools='php /Volumes/unified/tools/createSqlForModel.php'
 alias gitvundle='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
-alias schoolPath='cd ~/Documents/_SchoolStuff/2016-Fall/CS211/'
+alias schoolPath='cd ~/Documents/_SchoolStuff/2017-Spring'
 alias st='tmuxp load ~/dotfiles/.tmuxp/tmuxp_startup.json'
+alias stcss='tmuxp load ~/dotfiles/.tmuxp/tmuxp_css_startup.json'
+alias scst='tmuxp load ~/dotfiles/.tmuxp/tmuxp_school_startup.json'
 alias g='git status'
+
+# Show processes in detail
+alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 # Git
 alias ga='git add'
@@ -55,6 +60,13 @@ alias showkeys="bind -p | grep -v '^#\|self-insert\|^$'"
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Brew Update
+alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
+
+# Less Alternative
+vman() { man $* | col -b | vim -c 'set ft=man nomod nolist' -; }
+alias man='vman'
 
 # Bash completion without strict case
 bind "set completion-ignore-case on"
@@ -83,7 +95,7 @@ echo ""
 cal
 echo -n "Uptime: "; uptime
 echo ""
-echo "to edit,     'nano .bashrc'"
+echo "to edit,     'vim .bashrc'"
 echo ""
 
 MYNAME='muffinrain'
@@ -105,10 +117,19 @@ shopt -s globstar
 
 # mac default
 #export PS1='\h:\W \u$ '    # OS X orig
-export PS1='\w\n\u@\h \$ '
+#export PS1='\w\n\u@\h \$ '
+
+#function to display colorful prompt
+RED="\[\e[1;31m\]"
+ORANGE="\[\e[0;35m\]"
+RESET="\[\e[0m\]" 
+export PS1="${RED}\w\n${ORANGE}\u${RESET}\h ${RED}\$${RESET} "
 
 #Set to Modified Shell Color
-#export PS1='\e[1;31m\w\n\e[0;36m\u@\h \e[0m\$ '
+#RED="\[[1;31m\]"
+#ORANGE="\[[0;35m\]"
+#RESET="[0m" #There are no "\[" and "\]" to compensate for Bash jankiness
+#export PS1="\e${RED}\w\[\n\]\e${ORANGE}\[\u\]\[\e\]${RESET}\h \[\e\]${RED}\$\[\e\]${RESET} "
 
 # GREP_COLOR codes
 # Attributes:   Text color:    Background:
@@ -221,4 +242,4 @@ fi
 #	r-------- = 400  (root must change or execute)
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.npm-packages/bin" #Removes need for global install
+#export PATH="$PATH:$HOME/.npm-packages/bin" #Removes need for global install
