@@ -16,14 +16,13 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'edkolev/tmuxline.vim'
 
 " Code management
-Plugin 'tpope/vim-commentary' " comment/uncomment lines with gcc or gc in visual mode
+Plugin 'tpope/vim-commentary'     " comment/uncomment lines with gcc or gc in visual mode
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'tomtom/tcomment_vim' "provides easy to use, file-type sensible comments for Vim
-Plugin 'ervandew/supertab' "use <Tab> for all your insert completion needs (:help ins-completion).
-Plugin 'scrooloose/syntastic' "syntax checking plugin for Vim.
-Plugin 'Chiel92/vim-autoformat' "formats code with one button
-Plugin 'skwp/greplace.vim' " search and replace across many files
-"Plugin 'w0rp/ale' " Hope for better than syntastic
+Plugin 'tomtom/tcomment_vim'      " provides easy to use, file-type sensible comments for Vim
+Plugin 'ervandew/supertab'        " use <Tab> for all your insert completion needs (:help ins-completion).
+Plugin 'scrooloose/syntastic'     " syntax checking plugin for Vim.
+Plugin 'Chiel92/vim-autoformat'   " formats code with one button
+Plugin 'skwp/greplace.vim'        " search and replace across many files
 
 " File Management
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -35,6 +34,11 @@ Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter
 
 " Markdown
 Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+" Notetaking
+"Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-notes'
 
 " Misc
 Plugin 'tpope/vim-surround' " surround text with things
@@ -243,6 +247,9 @@ noremap <Leader>' :%s:\v::g<Left><Left><Left>
 " Edit and source vimrc file
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
+
+" Source File
+nnoremap <Leader>sf :edit %<CR>
 
 " Comment lines or paragraph with //
 " nnoremap <Leader>cl mzI//<esc>'z
