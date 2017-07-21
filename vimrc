@@ -128,7 +128,7 @@ set formatoptions=c,q,r " This is a sequence of letters which describes how
                     "           to comments)
                     " n         recognize numbered lists
  
-"set hlsearch        " When there is a previous search pattern, highlight all
+set hlsearch        " When there is a previous search pattern, highlight all
                     " its matches.
  
 set incsearch       " While typing a search command, show immediately where the
@@ -419,3 +419,7 @@ set splitright
 
 nnoremap <Leader>wv :vnew<CR>
 nnoremap <Leader>wn :new<CR>
+
+" Search Highlighting Toggle
+let hlstate=0
+nnoremap <Leader>l :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
