@@ -7,6 +7,7 @@ alias ll='ls -alh'
 alias la='ls -A'
 alias l='ls -CF'
 alias lc='ls -AlhtU'
+alias lt='ls -hAlt'
 
 # can also redefine a command to change default options
 alias mv='mv -i'
@@ -88,14 +89,13 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 echo ""
-echo -n "Welcome to Unix on Mac OS X, "; whoami
+echo -n "Welcome to Unix on $OSTYPE OS X, "; whoami
 echo ""
 echo -n "Today is "; date "+%m-%d-%Y %H:%M:%S"
 echo ""
 cal
 echo -n "Uptime: "; uptime
 echo ""
-echo "to edit,     'vim .bashrc'"
 echo ""
 
 MYNAME='muffinrain'
@@ -164,6 +164,13 @@ bind -m vi-insert "\C-s.":forward-search-history
 #bind -m vi-insert "\ed.":kill-word
 #bind -m vi-insert "\er.":revert-line
 #bind -m vi-insert "jk":vi-movement-mode
+
+#Path List Format
+
+path() {
+    tr : '\n' <<< $PATH
+}
+export -f path
 
 # For OS X only
 function del() {
