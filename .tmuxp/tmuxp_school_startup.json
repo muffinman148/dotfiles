@@ -24,12 +24,24 @@
             "panes": [
                 {
                     "shell_command": [
-                        "cd ~"
+                        "cd ~/Documents/ProgrammingFun/",
+                        "ll"
                     ]
                 }
             ],
-            "window_name": "home"
+            "window_name": "Client"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "cd ~/Documents/ProgrammingFun/",
+                        "ll"
+                    ]
+                }
+            ],
+            "window_name": "Server"
         }
     ],
-    "session_name": "bash"
+    "session_name": "muffin"
 }

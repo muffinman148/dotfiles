@@ -1,0 +1,60 @@
+{
+    "windows": [
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "clear",
+                        "ls -1"
+                    ]
+                },
+                {
+                    "shell_command": [
+                        "vim"
+                    ]
+                }
+            ],
+            "options": {
+                "main-pane-width": 50
+            },
+            "layout": "main-vertical",
+            "window_name": "dev"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "ssh honorlife",
+                        "cd $wpcontent",
+                        "cd themes/Divi-child/scss/"
+                    ]
+                }
+            ],
+            "window_name": "ssh"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "ssh honorlife",
+                        "cd $wpcontent",
+                        "cd themes/Divi-child/scss/",
+                        "sass --watch $wpcontent/themes/Divi-child/scss/style.scss:$wpcontent/themes/Divi-child/style.css &"
+                    ]
+                }
+            ],
+            "window_name": "ssh&"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "cd ~"
+                    ]
+                }
+            ],
+            "window_name": "extra"
+        }
+    ],
+    "session_name": "SCSS"
+}
