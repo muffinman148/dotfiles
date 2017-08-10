@@ -99,6 +99,11 @@ bind "set show-all-if-ambiguous on"
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+########################################
+# BASH Boot
+########################################
+
 echo ""
 echo -n "Welcome to Unix on $OSTYPE OS X, "; whoami
 echo ""
@@ -126,15 +131,31 @@ shopt -s globstar
 # Save and reload the history after each command finishes
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# mac default
-#export PS1='\h:\W \u$ '    # OS X orig
-#export PS1='\w\n\u@\h \$ '
+########################################
+# Prompt
+########################################
 
-#function to display colorful prompt
-RED="\[\e[1;31m\]"
-ORANGE="\[\e[0;35m\]"
+# Functions
+showSuspended() {
+    if jobs | grep -cq Stopped; 
+    then
+        printf ' \e[5m♻ \e[25m'
+    fi
+}
+
+# Initialize Colors
+RED1="\[\e[38;5;124;1m\]"
+RED2="\[\e[38;5;124;48;5;240;2m\]"
 RESET="\[\e[0m\]" 
-export PS1="${RED}\w\n${ORANGE}\u${RESET}\h ${RED}\$${RESET} "
+
+SKY="\[\e[38;5;240;48;5;247;1m\]"
+SKY2="\[\e[38;5;247;48;5;240;1m\]"
+SKY3="\[\e[38;5;247;48;5;240;2m\]"
+SKY4="\[\e[48;1;0;38;5;240;1m\]"
+SUSPENDED="\[\e[38;5;7;48;5;247;1m\]"
+
+# Prompt
+PS1="${RED1}\w${RESET}\n${SKY}${SUSPENDED}\$(showSuspended)${SKY} \u ${RESET}${SKY2} ${SKY3}\h ${RESET}${RED2}\$ ${SKY4}${RESET} "
 
 #Set to Modified Shell Color
 #RED="\[[1;31m\]"
@@ -171,10 +192,20 @@ bind -m vi-insert "\C-e.":end-of-line
 bind -m vi-insert "\C-w.":backward-kill-word
 bind -m vi-insert "\C-k.":kill-line
 bind -m vi-insert "\C-s.":forward-search-history
-# Don't work
-#bind -m vi-insert "\ed.":kill-word
-#bind -m vi-insert "\er.":revert-line
-#bind -m vi-insert "jk":vi-movement-mode
+
+# vi mode visual
+bind 'set show-mode-in-prompt on'
+bind 'set vi-ins-mode-string \1\e[38;5;7;48;5;240;1m\2 I \1\e[38;5;240;48;5;247;1m\2\1\e[0m\2'
+bind 'set vi-cmd-mode-string \1\e[38;5;7;48;5;166;1m\2 N \1\e[38;5;166;48;5;247;1m\2\1\e[0m\2'
+
+
+# History Filter
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+########################################
+# Useful Functions
+########################################
 
 #Path List Format
 
