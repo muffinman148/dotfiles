@@ -2,6 +2,10 @@ export CLICOLOR=1   # simply enables coloring of your terminal.
 export LSCOLORS=GxFxCxDxBxegedabagaced  # specifies how to color specific items
 export EDITOR=/usr/bin/vim
 
+########################################
+# Aliases
+########################################
+
 # some more ls aliases
 alias ll='ls -alh'
 alias la='ls -A'
@@ -20,7 +24,6 @@ alias up='cd ..'
 alias tart='tar -tzvf'   # List file in archive
 alias tarc='tar -czvf'   # archive to file and gzip
 alias tarx='tar -xzvf'   # unarchive and ungzip
-alias gs='git status'
 # some apple script
 alias unmute="osascript -e 'set volume output muted false'"
 alias mute="osascript -e 'set volume output muted true'"
@@ -34,16 +37,24 @@ alias egrep='LC_ALL=C egrep'
 alias less='less -MRS'
 alias phptools='php /Volumes/unified/tools/createSqlForModel.php'
 alias gitvundle='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
+alias info='info --vi-keys'
+
+# Quick Paths
 alias schoolPath='cd ~/Documents/_SchoolStuff/2017-Spring'
+alias workPath='cd ~/Documents/Adobe/Projects/'
+
+# Tmuxp Configurations
 alias st='tmuxp load ~/dotfiles/.tmuxp/tmuxp_startup.json'
+alias stdnd='tmuxp load ~/dotfiles/.tmuxp/tmuxp_dnd_startup.json'
 alias stcss='tmuxp load ~/dotfiles/.tmuxp/tmuxp_css_startup.json'
 alias scst='tmuxp load ~/dotfiles/.tmuxp/tmuxp_school_startup.json'
-alias g='git status'
 
 # Show processes in detail
 alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 # Git
+alias gs='git status'
+alias g='git status'
 alias ga='git add'
 alias gc='git commit -v'
 alias gd='git diff'
