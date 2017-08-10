@@ -263,16 +263,6 @@ nnoremap <Leader>sv :source $MYVIMRC<CR>
 " Source File
 nnoremap <Leader>sf :edit %<CR>
 
-" Comment lines or paragraph with //
-" nnoremap <Leader>cl mzI//<esc>'z
-" nnoremap <Leader>cp mzVip:s/^\s*\zs\ze/\/\//<cr><esc>'z
-
-" nnoremap <Leader>ul mzV:s/\%V\(\s*\)\/\//\1<cr>'z
-" nnoremap <Leader>up mzVip:s/\%V\(\s*\)\/\//\1<cr>'z
-
-" vnoremap <Leader>cl mz:s/^\s*\zs\ze/\/\/<cr>'z
-" vnoremap <Leader>ul mzV:s/\%V\(\s*\)\/\//\1<cr>'z
-
 " Insert php var_dump() and die() for debugging
 noremap <Leader>d ovar_dump();die('here');k0f(a
 
@@ -307,8 +297,6 @@ nmap <silent> <Leader>t :call g:WorkaroundNERDTreeToggle()<CR>
 function! g:WorkaroundNERDTreeToggle()
   try | NERDTreeToggle | catch | silent! NERDTree | endtry
 endfunction
-
-"-----------------END-----------------"
 
 """""""""""""""""""""""""""""""""""""""
 " Airline
@@ -364,25 +352,31 @@ let g:tmuxline_separators = {
     \ 'right_alt' : '<',
     \ 'space' : ' '}
 
+"""""""""""""""""""""""""""""""""""""""
+" gitgutter
+"""""""""""""""""""""""""""""""""""""""
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+"""""""""""""""""""""""""""""""""""""""
+" .------..------..------.            "
+" |O.--. ||R.--. ||G.--. | Vim-Orgmode"
+" | :/\: || :(): || :/\: | Recommended"
+" | :\/: || ()() || :\/: | Plugins    "
+" | '--'O|| '--'R|| '--'G|            "
+" `------'`------'`------'            "
+"""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""
+" Tagbar
+"""""""""""""""""""""""""""""""""""""""
+nmap <f8> :TagbarToggle<CR>
 "-----------------END-----------------"
 
 " run php on current file
-nnoremap <f3> :!php % <CR>
+" nnoremap <f3> :!php % <CR>
 
 " Display statistics
 nmap <Leader>g g<C-g>
-
-" Paste from OS X PasteBoard, but I have it configured so it works very well in
-" insert mode and in normal mode. The nopaste setting makes sure that
-" auto-indent doesn't go crazy when you try to paste something in. 
-"nmap <Leader>v :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-"imap <Leader>v <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-
-" Copies text to OS X PasteBoard. If you are in normal mode, it will just grab
-" the line your working on. If you in visual mode however, it will grab all the
-" selected text. 
-"nmap <Leader>c :.w !pbcopy<CR><CR>
-"vmap <Leader>c :w !pbcopy<CR><CR>
 
 " Saves File
 nmap <Leader>s :w<CR>
