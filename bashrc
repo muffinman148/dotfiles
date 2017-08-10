@@ -77,8 +77,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 
 # Less Alternative
-vman() { man $* | col -b | vim -c 'set ft=man nomod nolist' -; }
-alias man='vman'
+# vman() { man $* | col -b | vim -c 'set ft=man nomod nolist' -; }
+# alias man='vman'
 
 # Bash completion without strict case
 bind "set completion-ignore-case on"
@@ -92,6 +92,9 @@ bind "set show-all-if-ambiguous on"
 #export TODOTXT_DEFAULT_ACTION=ls
 # Turns auto archive off
 #export TODOTXT_AUTO_ARCHIVE=0
+
+# Emacs EVIL
+alias emacs="/usr/local/Cellar/emacs/25.2/Emacs.app/Contents/MacOS/Emacs -nw"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
