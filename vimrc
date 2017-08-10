@@ -29,7 +29,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree' " file drawer, open with :NERDTreeToggle
 
 " Git
-Plugin 'tpope/vim-fugitive' " the ultimate git helper
+Plugin 'tpope/vim-fugitive'     " the ultimate git helper
 Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter
 
 " Markdown
@@ -37,17 +37,23 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
 " Notetaking
-"Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-notes'
+Plugin 'jceb/vim-orgmode'
+
+" OrgMode Recommended Plugins
+Plugin 'tpope/vim-speeddating'   " C-x and C-a now work on Dates
+Plugin 'vim-scripts/SyntaxRange' " :[range]SyntaxIgnore :[range]SyntaxInclude | Changes Syntax of selected area
+Plugin 'itchyny/calendar.vim'    " :Calendar -view=year -split=vertical -width=27
+Plugin 'chrisbra/NrrwRgn'        " :NR to create temp buffer of selected item
+Plugin 'majutsushi/tagbar'       " <f8> :TagbarToggle
 
 " Misc
 Plugin 'tpope/vim-surround' " surround text with things
-Plugin 'sjl/gundo.vim' " Visualize your Vim undo tree.
-Plugin 'tpope/vim-repeat' " Allows '.' repeats of plugin maps/commands
+Plugin 'sjl/gundo.vim'      " Visualize your Vim undo tree.
+Plugin 'tpope/vim-repeat'   " Allows '.' repeats of plugin maps/commands
 
 " Syntax highlighting.
-Plugin 'evidens/vim-twig' " Twig syntax hightlighting.
-Plugin 'elzr/vim-json' " JSON code highlighting.
+Plugin 'lumiliet/vim-twig'            " Twig syntax highlighting.
+Plugin 'elzr/vim-json'                " JSON code highlighting.
 Plugin 'terryma/vim-multiple-cursors' " Multiple cursors for simultaneous editing
 
 " Movement
