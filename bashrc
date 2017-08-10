@@ -112,7 +112,7 @@ echo -n "Welcome to Unix on $OSTYPE OS X, "; whoami
 echo ""
 echo -n "Today is "; date "+%m-%d-%Y %H:%M:%S"
 echo ""
-cal
+gcal -H '\e[38;5;1;48;5;7;1m:\e[0m:\e[32m:\e[0m' -q US_CA
 echo -n "Uptime: "; uptime
 echo ""
 echo ""
