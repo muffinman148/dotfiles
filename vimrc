@@ -79,7 +79,13 @@ let mapleader=' '
 " through the buffer to previous misspelled words.
 " Once the cursor is on the word, use z=, and Vim will suggest a list of
 " alternatives that it thinks may be correct.
-"set spell spelllang=en_us
+
+" Toggles Set Spell
+map <F5> :setlocal spell! spelllang=en_us<CR>
+hi SpellBad ctermfg=white ctermbg=red
+hi SpellCap ctermfg=black ctermbg=blue
+hi SpellLocal ctermfg=white ctermbg=green
+hi SpellRare ctermfg=white ctermbg=magenta
 
 "set clipboard=unnamed
 
@@ -228,7 +234,7 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set timeoutlen=500
 "set ttimeoutlen=0
 
-imap jk <ESC>
+inoremap jk <ESC>`^
 
 " Window moving
 nmap <silent> <C-Up> :wincmd k<CR>
@@ -274,7 +280,7 @@ noremap <Leader>d ovar_dump();die('here');k0f(a
 nnoremap <f1> 0/private\<bar>protected\<bar>publicww"zywjmqGo?}dGopublic function set "zpbhx~A($"zpA){	$this->"zpA = $"zpA;return $this;}<<oo	public function get "zpbhx~A(){	return $this->"zpA;}}V(((((='q
 
 " Add getter and setters for properties
-nnoremap <f2> 0/string\<bar>int\<bar>long\<bar>double\<bar>float\<bar>char\<bar>boolw"zywjmqGo?}dGostring set "zpbhx~A($"zpA){ $this->"zpA = $"zpA;return $this;}<<oo string get "zpbhx~A(){ return $this->"zpA;}}V(((((='q
+" nnoremap <f2> 0/string\<bar>int\<bar>long\<bar>double\<bar>float\<bar>char\<bar>boolw"zywjmqGo?}dGostring set "zpbhx~A($"zpA){ $this->"zpA = $"zpA;return $this;}<<oo string get "zpbhx~A(){ return $this->"zpA;}}V(((((='q
 
 " Testing for Class creation
 " nnoremap <f3> 0/class (\w+) \{j/protected\<bar>private
@@ -326,16 +332,11 @@ let g:airline_left_alt_sep = '»'
 let g:airline_left_sep = ''
 let g:airline_right_alt_sep = '«'
 let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = 'π'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'þ'
-let g:airline_symbols.paste = '∥'
+let g:airline_symbols.paste = 'PASTE'
 let g:airline_symbols.whitespace = 'ξ'
 
-"-----------------END-----------------"
 """""""""""""""""""""""""""""""""""""""
 " Syntastic
 """""""""""""""""""""""""""""""""""""""
@@ -347,11 +348,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"
+
 """""""""""""""""""""""""""""""""""""""
-" Ale
+" NERDCommenter
 """""""""""""""""""""""""""""""""""""""
-"let g:ale_filetype_blacklist = ['nerdtree', 'unite', 'COMMIT_EDITMSG']
+let g:NERDSpaceDelims = 1
 
 """""""""""""""""""""""""""""""""""""""
 " Tmux
@@ -404,6 +405,9 @@ vmap <Leader>v "*P
 " Copy to Clipboard
 nmap <Leader>c "*Y
 vmap <Leader>c "*y
+
+" Toggles Paste Mode
+set pastetoggle=<f3>
 
 " Line-break at Cursor
 nnoremap K i<CR><Esc>
