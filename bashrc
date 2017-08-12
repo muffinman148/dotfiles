@@ -147,8 +147,8 @@ showSuspended() {
 }
 
 # Initialize Colors
-RED1="\[\e[38;5;124;1m\]"
-RED2="\[\e[38;5;124;48;5;240;2m\]"
+PWDirectory="\[\e[38;5;203;1m\]"
+DOLLAR="\[\e[38;5;40;48;5;240;1m\]"
 RESET="\[\e[0m\]" 
 
 SKY="\[\e[38;5;240;48;5;247;1m\]"
@@ -158,7 +158,7 @@ SKY4="\[\e[48;1;0;38;5;240;1m\]"
 SUSPENDED="\[\e[38;5;7;48;5;247;1m\]"
 
 # Prompt
-PS1="${RED1}\w${RESET}\n${SKY}${SUSPENDED}\$(showSuspended)${SKY} \u ${RESET}${SKY2} ${SKY3}\h ${RESET}${RED2}\$ ${SKY4}${RESET} "
+PS1="${PWDirectory}\w${RESET}\n${SKY}${SUSPENDED}\$(showSuspended)${SKY} \u ${RESET}${SKY2} ${SKY3}\h ${RESET}${DOLLAR}\$ ${SKY4}${RESET} "
 
 #Set to Modified Shell Color
 #RED="\[[1;31m\]"
