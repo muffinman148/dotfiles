@@ -1,77 +1,74 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin()
 
 " Airline
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'edkolev/tmuxline.vim'
+" Plug 'bling/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'edkolev/tmuxline.vim'
+" Powerline
+Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " Code management
-Plugin 'tpope/vim-commentary'     " comment/uncomment lines with gcc or gc in visual mode
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tomtom/tcomment_vim'      " provides easy to use, file-type sensible comments for Vim
-Plugin 'ervandew/supertab'        " use <Tab> for all your insert completion needs (:help ins-completion).
-Plugin 'scrooloose/syntastic'     " syntax checking plugin for Vim.
-Plugin 'Chiel92/vim-autoformat'   " formats code with one button
-Plugin 'skwp/greplace.vim'        " search and replace across many files
+Plug 'tpope/vim-commentary'     " comment/uncomment lines with gcc or gc in visual mode
+Plug 'scrooloose/nerdcommenter'
+Plug 'tomtom/tcomment_vim'      " provides easy to use, file-type sensible comments for Vim
+Plug 'ervandew/supertab'        " use <Tab> for all your insert completion needs (:help ins-completion).
+Plug 'scrooloose/syntastic'     " syntax checking plugin for Vim.
+Plug 'Chiel92/vim-autoformat'   " formats code with one button
+Plug 'skwp/greplace.vim'        " search and replace across many files
 
 " File Management
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree' " file drawer, open with :NERDTreeToggle
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree' " file drawer, open with :NERDTreeToggle
 
 " Git
-Plugin 'tpope/vim-fugitive'     " the ultimate git helper
-Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter
+Plug 'tpope/vim-fugitive'     " the ultimate git helper
+Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter
 
 " Markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Notetaking
-Plugin 'jceb/vim-orgmode'
+Plug 'jceb/vim-orgmode'
 
 " OrgMode Recommended Plugins
-Plugin 'tpope/vim-speeddating'   " C-x and C-a now work on Dates
-Plugin 'vim-scripts/SyntaxRange' " :[range]SyntaxIgnore :[range]SyntaxInclude | Changes Syntax of selected area
-Plugin 'itchyny/calendar.vim'    " :Calendar -view=year -split=vertical -width=27
-Plugin 'chrisbra/NrrwRgn'        " :NR to create temp buffer of selected item
-Plugin 'majutsushi/tagbar'       " <f8> :TagbarToggle
+Plug 'tpope/vim-speeddating'       " C-x and C-a now work on Dates
+Plug 'vim-scripts/SyntaxRange'     " :[range]SyntaxIgnore :[range]SyntaxInclude | Changes Syntax of selected area
+Plug 'itchyny/calendar.vim'        " :Calendar -view=year -split=vertical -width=27
+Plug 'chrisbra/NrrwRgn'            " :NR to create temp buffer of selected item
+Plug 'majutsushi/tagbar'           " <f8> :TagbarToggle
+Plug 'vim-scripts/taglist.vim'     " :h :TlistToggle
+Plug 'vim-scripts/utl.vim'         " Allows for Universal Text Linking
 
 " Misc
-Plugin 'tpope/vim-surround' " surround text with things
-Plugin 'sjl/gundo.vim'      " Visualize your Vim undo tree.
-Plugin 'tpope/vim-repeat'   " Allows '.' repeats of plugin maps/commands
+Plug 'tpope/vim-surround' " surround text with things
+Plug 'sjl/gundo.vim'      " Visualize your Vim undo tree.
+Plug 'tpope/vim-repeat'   " Allows '.' repeats of plugin maps/commands
 
 " Syntax highlighting.
-Plugin 'lumiliet/vim-twig'            " Twig syntax highlighting.
-Plugin 'elzr/vim-json'                " JSON code highlighting.
-Plugin 'terryma/vim-multiple-cursors' " Multiple cursors for simultaneous editing
+Plug 'lumiliet/vim-twig'            " Twig syntax highlighting.
+Plug 'elzr/vim-json'                " JSON code highlighting.
+Plug 'terryma/vim-multiple-cursors' " Multiple cursors for simultaneous editing
 
 " Movement
-Plugin 'justinmk/vim-sneak'
-Plugin 'terryma/vim-smooth-scroll' " Smooth scrolling with <c - f> & <c - b>
+Plug 'justinmk/vim-sneak'
+Plug 'terryma/vim-smooth-scroll' " Smooth scrolling with <c - f> & <c - b>
 
 " tmux
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tmux-plugins/vim-tmux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux'
 
 " Python
-Plugin 'klen/python-mode'
+Plug 'klen/python-mode'
 
 " All of your Plugins must be added before the following line 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 
 let mapleader=' '
+let maplocalleader=','
 
 
 " To move to a misspelled word, use ]s and [s. The ]s command will move the
@@ -156,6 +153,7 @@ set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
  
 set textwidth=79    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
+autocmd BufNew,BufRead *.org set textwidth=0
  
 set relativenumber  " Shows current line as well as ascending and descending 
 
@@ -299,31 +297,34 @@ function! g:WorkaroundNERDTreeToggle()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""
+" Powerline
+"""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
 " Airline
 """""""""""""""""""""""""""""""""""""""
 
 " need it for airline symbols
-set encoding=utf-8
+" set encoding=utf-8
 
-" airline settings
-let g:airline#extensions#syntastic#enabled=1
-let g:airline_powerline_fonts=1
-let g:airline_theme='distinguished'
-let g:airline_skip_empty_sections = 1
+" " airline settings
+" let g:airline#extensions#syntastic#enabled=1
+" let g:airline_powerline_fonts=1
+" let g:airline_theme='distinguished'
+" let g:airline_skip_empty_sections = 1
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
 
-" unicode symbols
-let g:airline_left_alt_sep = '»'
-let g:airline_left_sep = ''
-let g:airline_right_alt_sep = '«'
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = 'π'
-let g:airline_symbols.paste = 'PASTE'
-let g:airline_symbols.whitespace = 'ξ'
+" " unicode symbols
+" let g:airline_left_alt_sep = '»'
+" let g:airline_left_sep = ''
+" let g:airline_right_alt_sep = '«'
+" let g:airline_right_sep = ''
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = 'π'
+" let g:airline_symbols.paste = 'PASTE'
+" let g:airline_symbols.whitespace = 'ξ'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntastic
@@ -365,11 +366,16 @@ nmap [h <Plug>GitGutterPrevHunk
 " | '--'O|| '--'R|| '--'G|            "
 " `------'`------'`------'            "
 """""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""
 " Tagbar
 """""""""""""""""""""""""""""""""""""""
 nmap <f8> :TagbarToggle<CR>
+"""""""""""""""""""""""""""""""""""""""
+" Utl
+"""""""""""""""""""""""""""""""""""""""
+" Note: This only works with our osascript running from ~
+" let g:utl_cfg_hdl_scm_http_system = \" silent !firefox -remote 'ping()' && firefox -remote 'openURL( %u )' || firefox '%u#%f' &"
+let g:utl_cfg_hdl_scm_http_system = "!~/bin/firefox-tab.sh '%u'"
+
 "-----------------END-----------------"
 
 " run php on current file
