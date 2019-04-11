@@ -1,7 +1,9 @@
 vim/bundle
 vim/plugin
-serial_lookup.sh
+vim/after/
+vim/autoload/
+vim/plugged/
+vim/spell/
 profile.log
 tmux-client-*.log
 .tmux/plugins
-vim/spell/*.spl
