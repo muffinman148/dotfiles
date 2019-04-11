@@ -4,3 +4,4 @@ serial_lookup.sh
 profile.log
 tmux-client-*.log
 .tmux/plugins
+vim/spell/*.spl
