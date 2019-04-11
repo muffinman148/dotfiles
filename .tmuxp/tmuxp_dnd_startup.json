@@ -1,0 +1,27 @@
+{
+    "windows": [
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "cd \"$DROPBOX\"",
+                        "cd Dnd/",
+                        "vim"
+                    ]
+                }
+            ],
+            "window_name": "notes"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "cd ~"
+                    ]
+                }
+            ],
+            "window_name": "home"
+        }
+    ],
+    "session_name": "DnD"
+}
