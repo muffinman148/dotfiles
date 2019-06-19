@@ -38,16 +38,20 @@ alias less='less -MRS'
 alias phptools='php /Volumes/unified/tools/createSqlForModel.php'
 alias gitvundle='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 alias info='info --vi-keys'
+alias getsw='system_profiler SPSoftwareDataType'
+alias gethw='system_profiler SPHardwareDataType'
 
 # Quick Paths
-alias schoolPath='cd ~/Documents/_SchoolStuff/2017-Spring'
+alias schoolPath='cd ~/Documents/_SchoolStuff/'
 alias workPath='cd ~/Documents/Adobe/Projects/'
+alias dropboxPath='cd ~/Dropbox\ -\ Personal/Dropbox/sharedNotes/'
+alias illustratorPath='cd /Applications/Adobe\ Illustrator\ CC\ 2019/Presets.localized/en_US/Scripts/'
 
 # Tmuxp Configurations
 alias st='tmuxp load ~/dotfiles/.tmuxp/tmuxp_startup.json'
 alias stdnd='tmuxp load ~/dotfiles/.tmuxp/tmuxp_dnd_startup.json'
 alias stcss='tmuxp load ~/dotfiles/.tmuxp/tmuxp_css_startup.json'
-alias scst='tmuxp load ~/dotfiles/.tmuxp/tmuxp_school_startup.json'
+alias stsc='tmuxp load ~/dotfiles/.tmuxp/tmuxp_school_startup.json'
 
 # Show processes in detail
 alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
@@ -62,23 +66,20 @@ alias gu='git remote update'
 alias gsi='git status --i'
 alias gl='git log'
 alias gca='git commit --amend'
+alias gdm='git diff master origin/master'
 
 # Show bash keybindings
 alias showkeys="bind -p | grep -v '^#\|self-insert\|^$'"
 
-# schedule wake in +7 seconds from now
-# sudo pmset schedule wake "$(date -j -v +7S "+%m/%d/%Y %H:%M:%S")"
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Brew Update
-alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
+alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
-# Less Alternative
-# vman() { man $* | col -b | vim -c 'set ft=man nomod nolist' -; }
-# alias man='vman'
+# List SSH Config Hosts
+alias sshhosts="printf 'HOST LIST\n---------\n'; grep '^Host' $HOME/.ssh/config | sed 's/Host //'"
+
+# Open and Close Tmux
+bind -m vi -x '"OP":"tmux attach-session"' # <F1> Open available tmux session
+bind -m vi -x '"OQ":"tmux detach-client"'  # <F2> Closes available tmux session
 
 # Bash completion without strict case
 bind "set completion-ignore-case on"
@@ -94,7 +95,7 @@ bind "set show-all-if-ambiguous on"
 #export TODOTXT_AUTO_ARCHIVE=0
 
 # Emacs EVIL
-alias emacs="/usr/local/Cellar/emacs/25.2/Emacs.app/Contents/MacOS/Emacs -nw"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -104,21 +105,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 ########################################
-# BASH Boot
+# BASH Variables
 ########################################
-
-echo ""
-echo -n "Welcome to Unix on $OSTYPE OS X, "; whoami
-echo ""
-echo -n "Today is "; date "+%m-%d-%Y %H:%M:%S"
-echo ""
-gcal -H '\e[38;5;1;48;5;7;1m:\e[0m:\e[32m:\e[0m' -q US_CA
-echo -n "Uptime: "; uptime
-echo ""
-echo ""
-
-MYNAME='muffinrain'
-export MYNAME
+DROPBOX=~/"Dropbox - Personal/Dropbox"
+PROJECTS=~/'Documents/Adobe/Projects/'
 
 # or set it and export it in same line
 
@@ -130,41 +120,13 @@ export HISTIGNORE="t *:delHistory*:fg:history:history -d*:h:h -d*:pwd:exit:df:ll
 shopt -s histappend
 # allows for recursive listing with ex: **/*.cpp
 shopt -s globstar
+# cd to a directory the lazy way; accepts mispelling of words... somtimes
+shopt -s cdspell
+# notify when background process is complete
+shopt -o -s notify
 
 # Save and reload the history after each command finishes
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-########################################
-# Prompt
-########################################
-
-# Functions
-showSuspended() {
-    if jobs | grep -cq Stopped; 
-    then
-        printf ' \e[5m♻ \e[25m'
-    fi
-}
-
-# Initialize Colors
-PWDirectory="\[\e[38;5;203;1m\]"
-DOLLAR="\[\e[38;5;40;48;5;240;1m\]"
-RESET="\[\e[0m\]" 
-
-SKY="\[\e[38;5;240;48;5;247;1m\]"
-SKY2="\[\e[38;5;247;48;5;240;1m\]"
-SKY3="\[\e[38;5;247;48;5;240;2m\]"
-SKY4="\[\e[48;1;0;38;5;240;1m\]"
-SUSPENDED="\[\e[38;5;7;48;5;247;1m\]"
-
-# Prompt
-PS1="${PWDirectory}\w${RESET}\n${SKY}${SUSPENDED}\$(showSuspended)${SKY} \u ${RESET}${SKY2} ${SKY3}\h ${RESET}${DOLLAR}\$ ${SKY4}${RESET} "
-
-#Set to Modified Shell Color
-#RED="\[[1;31m\]"
-#ORANGE="\[[0;35m\]"
-#RESET="[0m" #There are no "\[" and "\]" to compensate for Bash jankiness
-#export PS1="\e${RED}\w\[\n\]\e${ORANGE}\[\u\]\[\e\]${RESET}\h \[\e\]${RED}\$\[\e\]${RESET} "
 
 # GREP_COLOR codes
 # Attributes:   Text color:    Background:
@@ -183,24 +145,85 @@ export GREP_COLOR="1;31;47"
 # Specify options grep should use by default
 export GREP_OPTIONS="--color=auto"
 
+########################################
+# Prompt
+########################################
+
+# Functions
+showSuspended() {
+    if jobs | grep -cq Stopped; 
+    then
+        printf ' \e[5m♻ \e[25m'
+    fi
+}
+
+# Initialize Colors
+PWDirectory="\[\e[38;5;203;1m\]"
+DOLLAR="\[\e[38;5;40;48;5;240;1m\]"
+DOLLAR2="\[\e[38;5;220;1m\]"
+RESET="\[\e[0m\]" 
+
+SEGDARK="\[\e[38;5;240;48;5;247;1m\]"
+SEGLGIHT="\[\e[38;5;247;48;5;240;1m\]"
+HOSTCOLOR="\[\e[11;1;247;48;5;240;1m\]"
+HOSTCOLOR2="\[\e[38;5;4;1m\]"
+GREYEND="\[\e[48;1;0;38;5;240;1m\]"
+SUSPENDED="\[\e[38;5;7;48;5;247;1m\]"
+
+# Prompt
+if [ $TERM_PROGRAM == "iTerm.app" ]; then # iTerm 
+    # BASH Boot
+    echo ""
+    echo -n "Welcome to Unix on $OSTYPE OS X, "; whoami
+    echo ""
+    echo -n "Today is "; date "+%m-%d-%Y %H:%M:%S"
+    echo ""
+    gcal -H '\e[38;5;1;48;5;7;1m:\e[0m:\e[32m:\e[0m' -q US_CA
+    echo -n "Uptime: "; uptime
+    echo ""
+    echo ""
+
+    MYNAME='muffinrain'
+    export MYNAME
+
+
+    # Neat OS Info 
+    if [ -x "$(command -v neofetch)" ]; then 
+        neofetch 
+    fi
+
+    # Establish Fancy PS1
+    PS1="${PWDirectory}\w${RESET}\n${SEGDARK}${SUSPENDED}\$(showSuspended)${SEGDARK} \u ${RESET}${SEGLGIHT} ${HOSTCOLOR}\h ${RESET}${DOLLAR}\$ ${GREYEND}${RESET} "
+    bind 'set show-mode-in-prompt on'
+    unset PROMPT_COMMAND
+else # Other terminal prompts
+    PS1="${PWDirectory}\w\n${HOSTCOLOR2}\h ${RESET}${DOLLAR2}\$ ${RESET}"
+    bind 'set show-mode-in-prompt off'
+    unset PROMPT_COMMAND
+fi
+
+########################################
+# Readline Options
+########################################
+
 # Use vi key bindings instead of emacs
 set -o vi
-bind -m vi-command ".":insert-last-argument
-bind -m vi-command "gg":beginning-of-history
-bind -m vi-command "G":end-of-history
-bind -m vi-command "u":undo
-bind -m vi-insert "\C-l.":clear-screen
-bind -m vi-insert "\C-a.":beginning-of-line
-bind -m vi-insert "\C-e.":end-of-line
-bind -m vi-insert "\C-w.":backward-kill-word
-bind -m vi-insert "\C-k.":kill-line
-bind -m vi-insert "\C-s.":forward-search-history
+bind -m vi-command '".":insert-last-argument'
+bind -m vi-command '"gg":beginning-of-history'
+bind -m vi-command '"G":end-of-history'
+bind -m vi-command '"u":undo'
+bind -m vi-insert  '"\C-l.":clear-screen'
+bind -m vi-insert  '"\C-a.":beginning-of-line'
+bind -m vi-insert  '"\C-e.":end-of-line'
+bind -m vi-insert  '"\C-w.":backward-kill-word'
+bind -m vi-insert  '"\C-k.":kill-line'
+bind -m vi-insert  '"\C-s.":forward-search-history'
+bind -m vi-insert  '"jk":vi-movement-mode'
+bind -m vi-insert  '" ": magic-space' # Expands History variables
 
 # vi mode visual
-bind 'set show-mode-in-prompt on'
 bind 'set vi-ins-mode-string \1\e[38;5;7;48;5;240;1m\2 I \1\e[38;5;240;48;5;247;1m\2\1\e[0m\2'
 bind 'set vi-cmd-mode-string \1\e[38;5;7;48;5;166;1m\2 N \1\e[38;5;166;48;5;247;1m\2\1\e[0m\2'
-
 
 # History Filter
 bind '"\e[A": history-search-backward'
@@ -263,16 +286,10 @@ if [ -f ~/.git-completion.bash ]; then
 	source ~/.git-completion.bash
 fi
 
-# Recursively remove files
-#find . -name "Thumbs.db" -print0 | xargs -0 rm
-# Explanation 
-# find in current dir and below the name in quotes and print it ending with
-# null... -0 tells xargs that args are null seperated and removes each file
-# 
-# Newer way
-#find . -iname 'free*3*9*' -exec rm '{}' \;
+psup() { ps acxo etime,command | grep -- "$1"; }
+export -f psup
 
-#File Permissions: Octal Notation
+# File Permissions: Octal Notation
 #------------------------------------
 #
 #		user	group	other
@@ -295,3 +312,13 @@ fi
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 #export PATH="$PATH:$HOME/.npm-packages/bin" #Removes need for global install
+
+# add this configuration to ~/.bashrc
+export HH_CONFIG=hicolor         # get more colors
+shopt -s histappend              # append new history items to .bash_history
+export HISTCONTROL=ignorespace   # leading space hides commands from history
+export HISTFILESIZE=10000        # increase history file size (default is 500)
+export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
+# if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
+if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\e^ihh \n"'; fi
