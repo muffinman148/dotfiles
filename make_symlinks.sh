@@ -30,6 +30,11 @@ for file in $files; do
     ln -s "$dir/$file" ~/."$file"
 done
 
+echo -n "Adding vim plugin manager"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+echo "done"
+
 install_zsh () {
 # Test to see if zshell is installed. If it is:
 if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
