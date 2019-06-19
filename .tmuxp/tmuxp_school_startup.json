@@ -4,44 +4,33 @@
             "panes": [
                 {
                     "shell_command": [
-                        "clear",
-                        "ls -1"
-                    ]
-                },
-                {
-                    "shell_command": [
-                        "vim"
+                        "mute",
+                        "clear"
                     ]
                 }
             ],
-            "options": {
-                "main-pane-width": 50
-            },
-            "layout": "main-vertical",
-            "window_name": "dev"
+            "window_name": "home"
         },
         {
             "panes": [
                 {
                     "shell_command": [
-                        "cd ~/Documents/ProgrammingFun/",
-                        "ll"
+                        "vim ~/'Dropbox - Personal/Dropbox/sharedNotes/2017-fall/'"
                     ]
                 }
             ],
-            "window_name": "Client"
+            "window_name": "notes"
         },
         {
             "panes": [
                 {
                     "shell_command": [
-                        "cd ~/Documents/ProgrammingFun/",
-                        "ll"
+                        "vim ~/'Dropbox - Personal/Dropbox/sharedNotes/2017-fall/org/schoolworkflow.org'"
                     ]
                 }
             ],
-            "window_name": "Server"
+            "window_name": "org"
         }
     ],
-    "session_name": "muffin"
+    "session_name": "SCHOOL"
 }

@@ -7,34 +7,40 @@
                     ]
                 }
             ],
+            "window_name": "home"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "ssh pi@devpi"
+                    ]
+                }
+            ],
             "window_name": "dev"
         },
         {
             "panes": [
                 {
                     "shell_command": [
+                        "ssh pi@devpi"
                     ]
                 }
             ],
-            "window_name": "sshdev"
+            "window_name": "log",
+            "options": {
+                "monitor-activity": "on"
+            }
         },
         {
             "panes": [
                 {
                     "shell_command": [
+                        "ssh pi@devpi"
                     ]
                 }
             ],
-            "window_name": "sshdevLOG"
-        },
-        {
-            "panes": [
-                {
-                    "shell_command": [
-                    ]
-                }
-            ],
-            "window_name": "sshdevSERVER"
+            "window_name": "server"
         },
         {
             "panes": [
@@ -45,8 +51,18 @@
                     ]
                 }
             ],
-            "window_name": "ORG"
+            "window_name": "org"
+        },
+        {
+            "panes": [
+                {
+                    "shell_command": [
+                        "cmus"
+                    ]
+                }
+            ],
+            "window_name": "M"
         }
     ],
-    "session_name": "nom"
+    "session_name": "work"
 }
