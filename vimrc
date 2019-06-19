@@ -1,14 +1,24 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Marc's vimrc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 call plug#begin()
 
 " Airline
-" Plug 'bling/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'edkolev/tmuxline.vim'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
+
+" Temp fix for Powerline DeprecationWarning for imp module
+" More info here: https://github.com/powerline/powerline/issues/1925
+if has('python3')
+      silent! python3 1
+endif
 " Powerline
-Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " Code management
 Plug 'tpope/vim-commentary'     " comment/uncomment lines with gcc or gc in visual mode
@@ -18,6 +28,7 @@ Plug 'ervandew/supertab'        " use <Tab> for all your insert completion needs
 Plug 'scrooloose/syntastic'     " syntax checking plugin for Vim.
 Plug 'Chiel92/vim-autoformat'   " formats code with one button
 Plug 'skwp/greplace.vim'        " search and replace across many files
+Plug 'mhinz/vim-signify'        " SVN/Git Gutter
 
 " File Management
 Plug 'ctrlpvim/ctrlp.vim'
@@ -25,11 +36,14 @@ Plug 'scrooloose/nerdtree' " file drawer, open with :NERDTreeToggle
 
 " Git
 Plug 'tpope/vim-fugitive'     " the ultimate git helper
-Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter
+" Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter
 
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'junegunn/goyo.vim'       " Distraction free writing
+Plug 'junegunn/limelight.vim'  " Highlighting for md sections
+Plug 'amix/vim-zenroom2'       " Padding for focused read/write
 
 " Notetaking
 Plug 'jceb/vim-orgmode'
@@ -44,9 +58,11 @@ Plug 'vim-scripts/taglist.vim'     " :h :TlistToggle
 Plug 'vim-scripts/utl.vim'         " Allows for Universal Text Linking
 
 " Misc
-Plug 'tpope/vim-surround' " surround text with things
-Plug 'sjl/gundo.vim'      " Visualize your Vim undo tree.
-Plug 'tpope/vim-repeat'   " Allows '.' repeats of plugin maps/commands
+Plug 'tpope/vim-surround'       " surround text with things
+Plug 'sjl/gundo.vim'            " Visualize your Vim undo tree.
+Plug 'tpope/vim-repeat'         " Allows '.' repeats of plugin maps/commands
+Plug 'chrisbra/vim-autoread/'   " Allows vim to auto update a buffer
+Plug 'skywind3000/asyncrun.vim' 
 
 " Syntax highlighting.
 Plug 'lumiliet/vim-twig'            " Twig syntax highlighting.
@@ -62,7 +78,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux'
 
 " Python
-Plug 'klen/python-mode'
+" Plug 'klen/python-mode'
 
 " All of your Plugins must be added before the following line 
 call plug#end()
@@ -84,8 +100,19 @@ hi SpellCap ctermfg=black ctermbg=blue
 hi SpellLocal ctermfg=white ctermbg=green
 hi SpellRare ctermfg=white ctermbg=magenta
 
-"set clipboard=unnamed
+" Creates Spell File on Load
+for d in glob('~/.vim/spell/*.add', 1, 1)
+    if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
+        silent exec 'mkspell! ' . fnameescape(d)
+    endif
+endfor
 
+" Sets Spell File
+set spellfile=~/.vim/spell/en.utf-8.add
+
+" Spell Checks within Comments
+syntax enable
+syntax spell toplevel
 
 " .vimrc
 " See: http://vimdoc.sourceforge.net/htmldoc/options.html for details
@@ -123,7 +150,7 @@ set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
                     " and when 'autoindent' is on. To insert a real tab when
                     " 'expandtab' is on, use CTRL-V <Tab>.
  
-set formatoptions=c,q,r " This is a sequence of letters which describes how
+set formatoptions=cqrjn " This is a sequence of letters which describes how
                     " automatic formatting is to be done.
                     "
                     " letter    meaning when present in 'formatoptions'
@@ -232,6 +259,9 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set timeoutlen=500
 "set ttimeoutlen=0
 
+" Hit '%' on 'if' to jump to 'else'
+runtime macros/matchit.vim
+
 inoremap jk <ESC>`^
 
 " Window moving
@@ -249,10 +279,14 @@ nmap <silent> <C-l> :wincmd l<CR>
 nnoremap / /\v
 vnoremap / /\v
 cnoremap %s/ %smagic/\v
+" For help on \v run ':h magic'
 
 " Substitute command colon separated shortcut
 noremap <Leader>; :s:\v::g<Left><Left><Left>
 noremap <Leader>' :%s:\v::g<Left><Left><Left>
+
+" Deletes Whitespace
+noremap <Leader>dws :%s:\v^\s*$\n::g<CR> 
 
 " Edit and source vimrc file
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
@@ -267,11 +301,20 @@ noremap <Leader>d ovar_dump();die('here');k0f(a
 " Add getter and setters for properties
 nnoremap <f1> 0/private\<bar>protected\<bar>publicww"zywjmqGo?}dGopublic function set "zpbhx~A($"zpA){	$this->"zpA = $"zpA;return $this;}<<oo	public function get "zpbhx~A(){	return $this->"zpA;}}V(((((='q
 
+" Show Buffers
+nnoremap <leader>b :ls<CR>:buffer<space>
+
+" Show Marks
+nnoremap <leader>m :marks<CR>
+
 " Add getter and setters for properties
 " nnoremap <f2> 0/string\<bar>int\<bar>long\<bar>double\<bar>float\<bar>char\<bar>boolw"zywjmqGo?}dGostring set "zpbhx~A($"zpA){ $this->"zpA = $"zpA;return $this;}<<oo string get "zpbhx~A(){ return $this->"zpA;}}V(((((='q
 
 " Testing for Class creation
 " nnoremap <f3> 0/class (\w+) \{j/protected\<bar>private
+
+" Toggles Line Number
+" map <F4> :set nu! relativenumber!<CR> :GitGutterToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""
 " Nerdtree
@@ -297,6 +340,11 @@ function! g:WorkaroundNERDTreeToggle()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""
+" Python Mode
+"""""""""""""""""""""""""""""""""""""""
+" let g:pymode_options_colorcolumn = 1
+
+"""""""""""""""""""""""""""""""""""""""
 " Powerline
 """""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""
@@ -304,27 +352,39 @@ endfunction
 """""""""""""""""""""""""""""""""""""""
 
 " need it for airline symbols
-" set encoding=utf-8
+set encoding=utf-8
 
-" " airline settings
-" let g:airline#extensions#syntastic#enabled=1
-" let g:airline_powerline_fonts=1
-" let g:airline_theme='distinguished'
-" let g:airline_skip_empty_sections = 1
+" airline settings
+let g:airline_powerline_fonts = 1
+let g:airline_theme='distinguished'
 
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
-" " unicode symbols
-" let g:airline_left_alt_sep = '»'
-" let g:airline_left_sep = ''
-" let g:airline_right_alt_sep = '«'
-" let g:airline_right_sep = ''
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = 'π'
-" let g:airline_symbols.paste = 'PASTE'
-" let g:airline_symbols.whitespace = 'ξ'
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = 'PASTE'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_detect_spelllang=0
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 """""""""""""""""""""""""""""""""""""""
 " Syntastic
@@ -338,26 +398,20 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticToggleMode<CR> 
+
 """""""""""""""""""""""""""""""""""""""
 " NERDCommenter
 """""""""""""""""""""""""""""""""""""""
 let g:NERDSpaceDelims = 1
 
 """""""""""""""""""""""""""""""""""""""
-" Tmux
-"""""""""""""""""""""""""""""""""""""""
-let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': '>',
-    \ 'right' : '',
-    \ 'right_alt' : '<',
-    \ 'space' : ' '}
-
-"""""""""""""""""""""""""""""""""""""""
 " gitgutter
 """""""""""""""""""""""""""""""""""""""
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+" nmap ]h <Plug>GitGutterNextHunk
+" nmap [h <Plug>GitGutterPrevHunk
+
 """""""""""""""""""""""""""""""""""""""
 " .------..------..------.            "
 " |O.--. ||R.--. ||G.--. | Vim-Orgmode"
@@ -381,8 +435,11 @@ let g:utl_cfg_hdl_scm_http_system = "!~/bin/firefox-tab.sh '%u'"
 " run php on current file
 " nnoremap <f3> :!php % <CR>
 
+" Gundo Tree
+nmap <Leader>g :GundoToggle<CR>
+
 " Display statistics
-nmap <Leader>g g<C-g>
+nmap <Leader>ds g<C-g>
 
 " Saves File
 nmap <Leader>s :w<CR>
@@ -390,13 +447,6 @@ nmap <Leader>sa :w %:h/
 
 " Yank whole file to clipboard
 nmap <Leader>a :%y*<CR>
-
-" Paste from clipboard
-nmap <Leader>v "*P
-vmap <Leader>v "*P
-
-" Copy to Clipboard
-nmap <Leader>c "*y
 
 " Paste from clipboard
 nmap <Leader>v "*P
@@ -440,3 +490,78 @@ nnoremap <Leader>wn :new<CR>
 " Search Highlighting Toggle
 let hlstate=0
 nnoremap <Leader>l :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
+
+" Force Save/Write a file as root
+cmap w!! w !sudo tee % > /dev/null
+
+"""""""""""""""""""""""""""""""""""""""
+" Goyo
+"""""""""""""""""""""""""""""""""""""""
+function! s:goyo_enter()
+    highlight StatusLineNC ctermfg=none 
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    set noshowmode
+    set noshowcmd
+    set scrolloff=999
+    highlight clear cursorline
+    Limelight
+    " ...
+endfunction
+
+function! s:goyo_leave()
+    " Resets these to my defaults
+    highlight cursorline term=bold cterm=NONE ctermbg=237 ctermfg=none
+    highlight cursorlinenr ctermbg=235 ctermfg=red
+    highlight linenr term=bold cterm=none ctermfg=darkgrey ctermbg=none gui=none guifg=darkgrey
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set showmode
+    set showcmd
+    set scrolloff=5
+    Limelight!
+    " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+nnoremap <silent> <leader>z :Goyo<cr>
+
+"""""""""""""""""""""""""""""""""""""""
+" Limelight
+"""""""""""""""""""""""""""""""""""""""
+
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+"""""""""""""""""""""""""""""""""""""""
+" CTRLP
+"""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_max_files=0
+
+"""""""""""""""""""""""""""""""""""""""
+" vim-signify
+"""""""""""""""""""""""""""""""""""""""
+let g:signify_vcs_list = [ 'git', 'svn' ]
+ nmap <leader>gj <plug>(signify-next-hunk)
+ nmap <leader>gk <plug>(signify-prev-hunk)
+
+"""""""""""""""""""""""""""""""""""""""
+" Grep Changes
+"""""""""""""""""""""""""""""""""""""""
+set grepformat=%f:%l:%c:%m
+if executable('rg') " ripgrep
+    set grepprg=rg\ --vimgrep\ $*
+elseif executable('ag') " silver searcher
+    set grepprg=ag\ --vimgrep\ $*
+endif
+
+"""""""""""""""""""""""""""""""""""""""
+" Tmux Changes
+"""""""""""""""""""""""""""""""""""""""
+set mouse+=a
+if &term =~ '^screen'
+" tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
