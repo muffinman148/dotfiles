@@ -12,9 +12,69 @@ if [ -f /etc/profile ]; then
 fi
 # Clearing PATH before path_helper executes will prevent it from prepending the default PATH to your (previously) chosen PATH, and will allow the rest of your personal bash setup scripts (commands further down .bash_profile, or in .bashrc if you've sourced it from .bash_profile) to setup your PATH accordingly.
 
+########################################
+# PATH
+########################################
 
-PATHORIG="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin"
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/opt/mysql55/bin:$(brew --prefix homebrew/php/php54)/bin:$PATH"
+PATHORIG="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/bin"
+export PATH=$PATHORIG
+
+########################################
+# PHP
+########################################
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+########################################
+# Python
+########################################
+# Setting PATH for Python 3.4
+# The orginal version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+export PATH
+
+# Setting PATH for Python 3.5
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+export PATH
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+export PATH
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+
+# Support for LaTeX
+# export PATH="/Library/TeX/Root/bin"
+
+# Possible Fix 2.7 
+export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+
+########################################
+# Pyenv
+########################################
+
+# Allows for the python shell to use Pyenv instead
+export PATH="/Users/username/.pyenv:$PATH"
+eval "$(pyenv init -)"
+
+########################################
+# Brew
+########################################
+export PATH="/usr/local/sbin:$PATH"
+
+# Enables bash completion on startup
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
+########################################
+# Onload
+########################################
 
 # This loads in the configuration in .bashrc
 # Put all configuration there
@@ -22,16 +82,12 @@ if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
 
-# Setting PATH for Python 3.4
-# The orginal version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-export PATH
+# Enables Vi-mode for Bash while in Tmux
+set -o vi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-# Setting PATH for Python 3.5
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
-export PATH
-
-export PATH="$HOME/.cargo/bin:$PATH"
+########################################
+# iTerm 
+#---------------------------------------
+# Note: This must be last.
+########################################
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
